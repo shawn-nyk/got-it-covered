@@ -1,0 +1,38 @@
+body {
+  background-color: #181818;
+}
+
+.btn-custom-green {
+  background-color: #1db954;
+  color: white;
+  width: 160px;
+  margin: 12px 0px;
+}
+
+.btn-custom-green:hover {
+  background-color: #119941;
+  color: white;
+}
+
+.btn-custom-green:focus {
+  outline: none !important;
+  outline-offset: none !important;
+  box-shadow: none;
+}
+
+.btn-custom-grey {
+  background-color: #52514e;
+  color: white;
+  width: 160px;
+}
+
+.btn-custom-grey:hover {
+  background-color: #41403d;
+  color: white;
+}
+
+.btn-custom-grey:focus {
+  outline: none !important;
+  outline-offset: none !important;
+  box-shadow: none;
+}

@@ -1,0 +1,12 @@
+.image-viewer {
+  background-color: #b9bec4;
+  border-radius: 21px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  min-width: 375px;
+  min-height: 550px;
+  padding: 30px;
+}

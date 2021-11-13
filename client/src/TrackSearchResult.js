@@ -1,30 +1,30 @@
 import React from "react";
 import { Pixelify } from "react-pixelify";
+import "./TrackSearchResult.css";
 
 export default function TrackSearchResult({ track, showResult }) {
   return (
-    <div className="d-flex m-2 align-items-center">
-      {/* <img
-        src={track.albumUrl}
-        style={{ height: "64px", width: "64px" }}
-        alt="album art"
-      />
-      <div className="ml-3">
-        <div>{track.title}</div>
-        <div className="text-muted">{track.artist}</div>
-      </div> */}
+    <div className="album-info">
       <Pixelify
         src={track.albumUrl}
-        pixelSize={showResult ? 1 : 16}
-        width={160}
-        height={160}
+        pixelSize={showResult ? 1 : 30}
+        width={300}
+        height={300}
       />
-      {showResult && (
+      {/* {showResult && (
         <div className="ml-3">
-          <div>{track.title}</div>
-          <div className="text-muted">{track.artist}</div>
+          <div className="album-title">{track.title}</div>
+          <div className="artist-name">{track.artist}</div>
         </div>
-      )}
+      )} */}
+      <div className="album-info-text">
+        <div className={`album-title ${showResult && "show"}`}>
+          {track.title}
+        </div>
+        <div className={`artist-name ${showResult && "show"}`}>
+          {track.artist}
+        </div>
+      </div>
     </div>
   );
 }

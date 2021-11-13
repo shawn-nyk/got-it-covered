@@ -1,0 +1,30 @@
+.album-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.album-info-text {
+  margin-top: 15px;
+}
+
+.album-title {
+  color: black;
+  font-weight: 700;
+  font-size: larger;
+  visibility: hidden;
+}
+
+.artist-name {
+  color: black;
+  font-weight: 300;
+  font-size: medium;
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}

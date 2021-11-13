@@ -4,6 +4,7 @@ import TrackSearchResult from "./TrackSearchResult";
 import { Container, Button } from "react-bootstrap";
 import { DotLoader } from "react-spinners";
 import SpotifyWebApi from "spotify-web-api-node";
+import "./Dashboard.css";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "ed975e8c8fad40a68e06fe6fba00554d",
@@ -40,6 +41,10 @@ export default function Dashboard({ code }) {
           console.log("DONE");
           setNumSavedAlbums(lastOffset);
         }
+      })
+      .catch(() => {
+        console.log("AIYO :(");
+        getNumSavedAlbums(0);
       });
   };
 
@@ -120,9 +125,12 @@ export default function Dashboard({ code }) {
   };
 
   return (
-    <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }}
+    >
       {numSavedAlbums >= 0 ? (
-        <>
+        <div className="image-viewer">
           <div className="flex-grow-1 my-2">
             {searchResults.map((track) => (
               <TrackSearchResult
@@ -132,15 +140,15 @@ export default function Dashboard({ code }) {
               />
             ))}
           </div>
-          <Button variant="primary" onClick={onClickHandler}>
+          <Button variant="custom-green" onClick={onClickHandler}>
             Get An Album
           </Button>
-          <Button variant="secondary" onClick={showResultHandler}>
+          <Button variant="custom-grey" onClick={showResultHandler}>
             Show Result
           </Button>
-        </>
+        </div>
       ) : (
-        <DotLoader color={"#1DB954"} loading={true} size={150} />
+        <DotLoader color={"#1db954"} loading={true} size={120} />
       )}
     </Container>
   );
