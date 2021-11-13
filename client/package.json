@@ -13,6 +13,7 @@
     "react-dom": "^17.0.2",
     "react-pixelify": "^0.2.2",
     "react-scripts": "4.0.3",
+    "react-spinners": "^0.11.0",
     "spotify-web-api-node": "^5.0.2",
     "web-vitals": "^1.1.2"
   },

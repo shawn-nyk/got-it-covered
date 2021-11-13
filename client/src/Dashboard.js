@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import useAuth from "./useAuth";
 import TrackSearchResult from "./TrackSearchResult";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
+import { DotLoader } from "react-spinners";
 import SpotifyWebApi from "spotify-web-api-node";
 
 const spotifyApi = new SpotifyWebApi({
@@ -13,10 +14,38 @@ export default function Dashboard({ code }) {
   // const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [numSavedAlbums, setNumSavedAlbums] = useState(-1);
 
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
+  }, [accessToken]);
+
+  const getNumSavedAlbums = (offset) => {
+    spotifyApi
+      .getMySavedAlbums({
+        limit: 50,
+        offset: offset,
+      })
+      .then((res) => {
+        if (res.body.items.length === 50) {
+          getNumSavedAlbums(offset + 50);
+          return -1;
+        }
+        return offset + res.body.items.length;
+      })
+      .then((lastOffset) => {
+        console.log(lastOffset);
+        if (lastOffset >= 0) {
+          console.log("DONE");
+          setNumSavedAlbums(lastOffset);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (!accessToken) return;
+    getNumSavedAlbums(0);
   }, [accessToken]);
 
   // useEffect(() => {
@@ -57,7 +86,7 @@ export default function Dashboard({ code }) {
 
   const onClickHandler = () => {
     setShowResult(false);
-    const randomOffset = Math.floor(Math.random() * 3000);
+    const randomOffset = Math.floor(Math.random() * numSavedAlbums);
     spotifyApi
       .getMySavedAlbums({
         limit: 1,
@@ -92,27 +121,27 @@ export default function Dashboard({ code }) {
 
   return (
     <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
-      {/* <Form.Control
-        type="search"
-        placeholder="Search Songs/Artists"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      /> */}
-      <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
-        {searchResults.map((track) => (
-          <TrackSearchResult
-            track={track}
-            showResult={showResult}
-            key={track.uri}
-          />
-        ))}
-      </div>
-      <Button variant="primary" onClick={onClickHandler}>
-        Get An Album
-      </Button>
-      <Button variant="secondary" onClick={showResultHandler}>
-        Show Result
-      </Button>
+      {numSavedAlbums >= 0 ? (
+        <>
+          <div className="flex-grow-1 my-2">
+            {searchResults.map((track) => (
+              <TrackSearchResult
+                track={track}
+                showResult={showResult}
+                key={track.uri}
+              />
+            ))}
+          </div>
+          <Button variant="primary" onClick={onClickHandler}>
+            Get An Album
+          </Button>
+          <Button variant="secondary" onClick={showResultHandler}>
+            Show Result
+          </Button>
+        </>
+      ) : (
+        <DotLoader color={"#1DB954"} loading={true} size={150} />
+      )}
     </Container>
   );
 }
