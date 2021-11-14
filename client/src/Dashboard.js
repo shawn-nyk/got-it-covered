@@ -4,6 +4,7 @@ import TrackSearchResult from "./TrackSearchResult";
 import { Container, Button } from "react-bootstrap";
 import { DotLoader } from "react-spinners";
 import SpotifyWebApi from "spotify-web-api-node";
+import { CSSTransition } from "react-transition-group";
 import "./Dashboard.css";
 
 const spotifyApi = new SpotifyWebApi({
@@ -51,42 +52,6 @@ export default function Dashboard({ code }) {
     getNumSavedAlbums(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
-
-  // useEffect(() => {
-  //   if (!search) return setSearchResults([]);
-  //   if (!accessToken) return;
-
-  //   let cancel = false;
-  //   spotifyApi
-  //     .getMySavedAlbums({
-  //       limit: 50,
-  //       offset: 0,
-  //     })
-  //     .then((res) => {
-  //       if (cancel) return;
-  //       setSearchResults(
-  //         res.body.items.map((item) => {
-  //           const smallestAlbumImage = item.album.images.reduce(
-  //             (smallest, image) => {
-  //               if (image.height < smallest.height && image.height >= 160)
-  //                 return image;
-  //               return smallest;
-  //             },
-  //             item.album.images[0]
-  //           );
-
-  //           return {
-  //             artist: item.album.artists[0].name,
-  //             title: item.album.name,
-  //             uri: item.album.uri,
-  //             albumUrl: smallestAlbumImage.url,
-  //           };
-  //         })
-  //       );
-  //     });
-
-  //   return () => (cancel = true);
-  // }, [search, accessToken]);
 
   const onClickHandler = () => {
     setShowResult(false);
@@ -175,12 +140,19 @@ export default function Dashboard({ code }) {
         </div>
       ) : (
         <div className="loading-page">
-          <DotLoader
-            className="spinner"
-            color={"#1db954"}
-            loading={true}
-            size={90}
-          />
+          <CSSTransition
+            classNames="loading-page-container"
+            in={true}
+            appear={true}
+            timeout={5000}
+          >
+            <DotLoader
+              className="spinner"
+              color={"#1db954"}
+              loading={true}
+              size={90}
+            />
+          </CSSTransition>
           <div className="loading-text">Knockin' on Spotify's door</div>
         </div>
       )}

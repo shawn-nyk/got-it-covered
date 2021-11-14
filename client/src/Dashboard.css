@@ -1,3 +1,33 @@
+.loading-page-container-appear {
+  opacity: 0;
+}
+
+.loading-page-container-appear-active {
+  opacity: 1;
+  transition: opacity 4000ms;
+}
+
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.loading-text {
+  margin-top: 80px;
+  color: white;
+  font-size: 16px;
+  font-family: museo-sans, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.spinner {
+  transition: all 1s;
+}
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -33,27 +63,6 @@
   width: 375px;
   min-height: 560px;
   padding: 30px;
-  transition: all 1s;
-}
-
-.loading-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
-
-.loading-text {
-  margin-top: 80px;
-  color: white;
-  font-size: 16px;
-  font-family: museo-sans, sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.spinner {
   transition: all 1s;
 }
 

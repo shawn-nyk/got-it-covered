@@ -18,6 +18,7 @@
   font-style: normal;
   font-weight: 700;
   visibility: hidden;
+  transition: all 0.5s;
 }
 
 .artist-name {
@@ -27,8 +28,10 @@
   font-weight: 300;
   font-size: 18px;
   visibility: hidden;
+  transition: all 0.5s;
 }
 
 .show {
   visibility: visible;
+  transition: all 0.5s;
 }
