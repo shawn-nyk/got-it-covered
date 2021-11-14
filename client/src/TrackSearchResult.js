@@ -11,12 +11,6 @@ export default function TrackSearchResult({ track, showResult }) {
         width={300}
         height={300}
       />
-      {/* {showResult && (
-        <div className="ml-3">
-          <div className="album-title">{track.title}</div>
-          <div className="artist-name">{track.artist}</div>
-        </div>
-      )} */}
       <div className="album-info-text">
         <div className={`album-title ${showResult && "show"}`}>
           {track.title}

@@ -140,15 +140,26 @@ export default function Dashboard({ code }) {
               />
             ))}
           </div>
-          <Button variant="custom-green" onClick={onClickHandler}>
+          <Button
+            className="get-album-btn"
+            variant="custom-green"
+            onClick={onClickHandler}
+          >
             Get An Album
           </Button>
-          <Button variant="custom-grey" onClick={showResultHandler}>
+          <Button
+            className="show-result-btn"
+            variant="custom-grey"
+            onClick={showResultHandler}
+          >
             Show Result
           </Button>
         </div>
       ) : (
-        <DotLoader color={"#1db954"} loading={true} size={120} />
+        <div className="loading-page">
+          <DotLoader color={"#1db954"} loading={true} size={100} />
+          <div className="loading-text">Loading Game</div>
+        </div>
       )}
     </Container>
   );

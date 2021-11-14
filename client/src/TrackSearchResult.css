@@ -13,15 +13,19 @@
 
 .album-title {
   color: black;
-  font-weight: 700;
-  font-size: larger;
+  font-size: 20px;
+  font-family: museo-sans, sans-serif;
+  font-style: normal;
+  font-weight: 900;
   visibility: hidden;
 }
 
 .artist-name {
   color: black;
+  font-family: museo-sans, sans-serif;
+  font-style: normal;
   font-weight: 300;
-  font-size: medium;
+  font-size: 18px;
   visibility: hidden;
 }
 

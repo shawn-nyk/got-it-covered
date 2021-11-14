@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/xua0kse.css");
+
 body {
   background-color: #181818;
 }
@@ -10,7 +12,7 @@ body {
 }
 
 .btn-custom-green:hover {
-  background-color: #119941;
+  background-color: #149e44;
   color: white;
 }
 

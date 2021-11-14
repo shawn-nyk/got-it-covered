@@ -1,5 +1,5 @@
 .image-viewer {
-  background-color: #b9bec4;
+  background-color: #ddd;
   border-radius: 21px;
   display: flex;
   flex-direction: column;
@@ -7,6 +7,31 @@
   align-content: center;
   align-items: center;
   min-width: 375px;
-  min-height: 550px;
+  min-height: 560px;
   padding: 30px;
+}
+
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.loading-text {
+  margin-top: 60px;
+  color: white;
+  font-size: 18px;
+  font-family: museo-sans, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.get-album-btn,
+.show-result-btn {
+  font-size: 15px;
+  font-family: museo-sans, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
