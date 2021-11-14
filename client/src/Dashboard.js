@@ -37,14 +37,11 @@ export default function Dashboard({ code }) {
         return offset + res.body.items.length;
       })
       .then((lastOffset) => {
-        console.log(lastOffset);
         if (lastOffset >= 0) {
-          console.log("DONE");
           setNumSavedAlbums(lastOffset);
         }
       })
       .catch(() => {
-        console.log("AIYO :(");
         getNumSavedAlbums(0);
       });
   };
