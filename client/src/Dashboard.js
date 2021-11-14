@@ -12,10 +12,11 @@ const spotifyApi = new SpotifyWebApi({
 
 export default function Dashboard({ code }) {
   const accessToken = useAuth(code);
-  // const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [numSavedAlbums, setNumSavedAlbums] = useState(-1);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [disableRevealBtn, setDisableRevealBtn] = useState(false);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -91,6 +92,10 @@ export default function Dashboard({ code }) {
 
   const onClickHandler = () => {
     setShowResult(false);
+    setDisableRevealBtn(false);
+    if (!gameStarted) {
+      setGameStarted(true);
+    }
     const randomOffset = Math.floor(Math.random() * numSavedAlbums);
     spotifyApi
       .getMySavedAlbums({
@@ -122,6 +127,7 @@ export default function Dashboard({ code }) {
 
   const showResultHandler = () => {
     setShowResult(true);
+    setDisableRevealBtn(true);
   };
 
   return (
@@ -130,35 +136,54 @@ export default function Dashboard({ code }) {
       style={{ minHeight: "100vh" }}
     >
       {numSavedAlbums >= 0 ? (
-        <div className="image-viewer">
-          <div className="flex-grow-1 my-2">
-            {searchResults.map((track) => (
-              <TrackSearchResult
-                track={track}
-                showResult={showResult}
-                key={track.uri}
-              />
-            ))}
+        <div className="dashboard">
+          <a className="dashboard-title" href="./" title="Back to main menu">
+            GOT IT COVERED
+          </a>
+          <div className="image-viewer">
+            <div className="flex-grow-1 my-2">
+              {searchResults.length > 0 ? (
+                searchResults.map((track) => (
+                  <TrackSearchResult
+                    track={track}
+                    showResult={showResult}
+                    key={track.uri}
+                  />
+                ))
+              ) : (
+                <div className="album-placeholder">
+                  Get an album
+                  <br />
+                  below to begin!
+                </div>
+              )}
+            </div>
+            <Button
+              className="get-album-btn"
+              variant="custom-green"
+              onClick={onClickHandler}
+            >
+              {gameStarted ? "Another One" : "Get An Album"}
+            </Button>
+            <Button
+              className="show-result-btn"
+              variant="custom-grey"
+              onClick={showResultHandler}
+              disabled={!gameStarted || disableRevealBtn}
+            >
+              Reveal
+            </Button>
           </div>
-          <Button
-            className="get-album-btn"
-            variant="custom-green"
-            onClick={onClickHandler}
-          >
-            Get An Album
-          </Button>
-          <Button
-            className="show-result-btn"
-            variant="custom-grey"
-            onClick={showResultHandler}
-          >
-            Show Result
-          </Button>
         </div>
       ) : (
         <div className="loading-page">
-          <DotLoader color={"#1db954"} loading={true} size={100} />
-          <div className="loading-text">Loading Game</div>
+          <DotLoader
+            className="spinner"
+            color={"#1db954"}
+            loading={true}
+            size={90}
+          />
+          <div className="loading-text">Knockin' on Spotify's door</div>
         </div>
       )}
     </Container>

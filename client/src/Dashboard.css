@@ -1,3 +1,27 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.dashboard-title {
+  text-decoration: none;
+  margin-bottom: 12px;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: korolev, sans-serif;
+  font-style: normal;
+  color: #ddd;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.dashboard-title:hover {
+  color: #1db954;
+}
+
 .image-viewer {
   background-color: #ddd;
   border-radius: 21px;
@@ -6,9 +30,10 @@
   justify-content: center;
   align-content: center;
   align-items: center;
-  min-width: 375px;
+  width: 375px;
   min-height: 560px;
   padding: 30px;
+  transition: all 1s;
 }
 
 .loading-page {
@@ -20,12 +45,16 @@
 }
 
 .loading-text {
-  margin-top: 60px;
+  margin-top: 80px;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-family: museo-sans, sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
+}
+
+.spinner {
+  transition: all 1s;
 }
 
 .get-album-btn,
@@ -33,5 +62,17 @@
   font-size: 15px;
   font-family: museo-sans, sans-serif;
   font-weight: 500;
+  font-style: normal;
+}
+
+.album-placeholder {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 120px;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: input-serif, serif;
   font-style: normal;
 }
