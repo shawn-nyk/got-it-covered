@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import "./Login.css";
 
 const AUTH_URL =
-  "https://accounts.spotify.com/authorize?client_id=ed975e8c8fad40a68e06fe6fba00554d&response_type=code&redirect_uri=http://localhost:3000&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state";
+  "https://accounts.spotify.com/authorize?client_id=ed975e8c8fad40a68e06fe6fba00554d&response_type=code&redirect_uri=https://got-it-covered.netlify.app/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state";
 
 export default function Login() {
   return (
