@@ -4,7 +4,7 @@
 
 .loading-page-container-appear-active {
   opacity: 1;
-  transition: opacity 4000ms;
+  transition: opacity 2000ms;
 }
 
 .loading-page {
@@ -19,8 +19,8 @@
   margin-top: 80px;
   color: white;
   font-size: 16px;
-  font-family: museo-sans, sans-serif;
-  font-weight: 300;
+  font-family: input-sans, sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -39,7 +39,7 @@
 .dashboard-title {
   text-decoration: none;
   margin-bottom: 12px;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   font-family: korolev, sans-serif;
   font-style: normal;
@@ -68,9 +68,9 @@
 
 .get-album-btn,
 .show-result-btn {
-  font-size: 15px;
-  font-family: museo-sans, sans-serif;
-  font-weight: 500;
+  font-size: 14px;
+  font-family: input-sans, sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -84,4 +84,19 @@
   font-weight: 500;
   font-family: input-serif, serif;
   font-style: normal;
+}
+
+.playlist-name {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  font-family: input-sans, sans-serif;
+  font-weight: 700;
+}
+
+.playlist-header {
+  font-weight: 400;
+  margin-bottom: 4px;
 }

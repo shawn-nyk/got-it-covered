@@ -4,18 +4,27 @@ body {
   background-color: #181818;
 }
 
+.btn-custom-launch {
+  background-color: #1db954;
+  color: white;
+  width: 200px;
+  margin: 5px 0px;
+}
+
 .btn-custom-green {
   background-color: #1db954;
   color: white;
-  width: 160px;
-  margin: 12px 0px;
+  width: 155px;
+  margin: 5px 0px;
 }
 
+.btn-custom-launch:hover,
 .btn-custom-green:hover {
   background-color: #139641;
   color: white;
 }
 
+.btn-custom-launch:focus,
 .btn-custom-green:focus {
   outline: none !important;
   outline-offset: none !important;
@@ -25,7 +34,8 @@ body {
 .btn-custom-grey {
   background-color: #52514e;
   color: white;
-  width: 160px;
+  width: 155px;
+  margin: 5px 0px;
 }
 
 .btn-custom-grey:hover {
@@ -37,4 +47,45 @@ body {
   outline: none !important;
   outline-offset: none !important;
   box-shadow: none;
+}
+
+.btn-custom-blue {
+  background-color: #2585bd;
+  color: white;
+  width: 155px;
+  margin: 5px 0px;
+}
+
+.btn-custom-blue:hover {
+  background-color: #166999;
+  color: white;
+}
+
+.btn-custom-blue:focus {
+  outline: none !important;
+  outline-offset: none !important;
+  box-shadow: none;
+}
+
+.popup-content {
+  background: rgb(255, 255, 255);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.popup-arrow {
+  color: rgb(255, 255, 255);
+  margin: 5px;
+}
+
+[role="tooltip"].popup-content {
+  padding: 7px 14px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+[data-popup="tooltip"].popup-overlay {
+  background: transparent;
 }

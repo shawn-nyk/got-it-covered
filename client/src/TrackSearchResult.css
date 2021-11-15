@@ -5,6 +5,7 @@
   align-content: center;
   align-items: center;
   text-align: center;
+  margin-bottom: 12px;
 }
 
 .album-info-text {
@@ -14,18 +15,18 @@
 .album-title {
   color: black;
   font-size: 20px;
-  font-family: museo-sans, sans-serif;
-  font-style: normal;
+  font-family: input-sans, sans-serif;
   font-weight: 700;
+  font-style: normal;
   visibility: hidden;
   transition: all 0.5s;
 }
 
 .artist-name {
   color: black;
-  font-family: museo-sans, sans-serif;
-  font-style: normal;
+  font-family: input-sans, sans-serif;
   font-weight: 300;
+  font-style: normal;
   font-size: 18px;
   visibility: hidden;
   transition: all 0.5s;
