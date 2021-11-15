@@ -13,12 +13,12 @@ export default function Login() {
       <div className="extras">
         See if you can recognise these pixelated album covers
         <br />
-        from your Spotify saved albums
+        from your Spotify playlists
       </div>
       <div className="extras" style={{ fontWeight: 500 }}>
         Click below to play!
       </div>
-      <Button className="launch-button" variant="custom-green" href={AUTH_URL}>
+      <Button className="launch-button" variant="custom-launch" href={AUTH_URL}>
         Login with Spotify
       </Button>
     </div>
