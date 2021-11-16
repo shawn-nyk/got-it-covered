@@ -31,37 +31,37 @@ body {
   box-shadow: none;
 }
 
-.btn-custom-grey {
+.btn-custom-yellow {
   background-color: #ddac1a;
   color: white;
   width: 155px;
   margin: 5px 0px;
 }
 
-.btn-custom-grey:hover {
+.btn-custom-yellow:hover {
   background-color: #b68c11;
   color: white;
 }
 
-.btn-custom-grey:focus {
+.btn-custom-yellow:focus {
   outline: none !important;
   outline-offset: none !important;
   box-shadow: none;
 }
 
-.btn-custom-blue {
+.btn-custom-grey {
   background-color: #686664;
   color: white;
   width: 155px;
   margin: 5px 0px;
 }
 
-.btn-custom-blue:hover {
+.btn-custom-grey:hover {
   background-color: #4b4a47;
   color: white;
 }
 
-.btn-custom-blue:focus {
+.btn-custom-grey:focus {
   outline: none !important;
   outline-offset: none !important;
   box-shadow: none;

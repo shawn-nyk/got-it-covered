@@ -38,7 +38,7 @@
 
 .dashboard-title {
   text-decoration: none;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   font-size: 32px;
   font-weight: 700;
   font-family: korolev, sans-serif;
@@ -50,10 +50,11 @@
 
 .dashboard-title:hover {
   color: #1db954;
+  transform: scale(1.03);
 }
 
 .image-viewer {
-  background-color: #ddd;
+  background-color: #eee;
   border-radius: 21px;
   display: flex;
   flex-direction: column;

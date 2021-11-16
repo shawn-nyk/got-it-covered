@@ -282,15 +282,20 @@ export default function Dashboard({ code }) {
               className="get-album-btn"
               variant="custom-green"
               onClick={() => onClickHandler(numTracksRemaining)}
-              disabled={gameOver}
+              disabled={gameOver || isGettingNextAlbum}
             >
               {gameStarted ? "Another One" : "Get An Album"}
             </Button>
             <Button
               className="show-result-btn"
-              variant="custom-grey"
+              variant="custom-yellow"
               onClick={showResultHandler}
-              disabled={!gameStarted || disableRevealBtn || gameOver}
+              disabled={
+                !gameStarted ||
+                disableRevealBtn ||
+                gameOver ||
+                isGettingNextAlbum
+              }
             >
               Reveal Cover
             </Button>
@@ -298,7 +303,7 @@ export default function Dashboard({ code }) {
               trigger={
                 <Button
                   className="show-result-btn"
-                  variant="custom-blue"
+                  variant="custom-grey"
                   onClick={showResultHandler}
                 >
                   Reveal Playlist
@@ -313,7 +318,7 @@ export default function Dashboard({ code }) {
             </Popup>
             <Button
               className="show-result-btn"
-              variant="custom-blue"
+              variant="custom-grey"
               onClick={changePlaylistHandler}
             >
               Change Playlist

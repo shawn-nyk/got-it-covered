@@ -5,12 +5,20 @@ import "./TrackSearchResult.css";
 export default function TrackSearchResult({ track, showResult }) {
   return (
     <div className="album-info">
-      <Pixelify
-        src={track.albumUrl}
-        pixelSize={showResult ? 1 : 30}
-        width={300}
-        height={300}
-      />
+      {showResult ? (
+        <img
+          src={track.albumUrl}
+          alt="album cover"
+          style={{ width: "300px", height: "300px" }}
+        />
+      ) : (
+        <Pixelify
+          src={track.albumUrl}
+          pixelSize={30}
+          width={300}
+          height={300}
+        />
+      )}
       <div className="album-info-text">
         <div className={`album-title ${showResult && "show"}`}>
           {track.title}
