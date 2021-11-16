@@ -2,7 +2,7 @@
 
 ## Intro
 
-The album guessing game where you are shown pixelated images of your Spotify saved albums and have to guess which they are. <br />
+The album guessing game where you are shown pixelated images of albums from your Spotify playlists and have to guess which they are. <br />
 
 Click [**here**](https://got-it-covered.netlify.app/) to play!
 

@@ -17,17 +17,58 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [disableRevealBtn, setDisableRevealBtn] = useState(false);
   const [username, setUsername] = useState("");
   const [numPlaylists, setNumPlaylists] = useState(0);
   const [playlistId, setPlaylistId] = useState("");
   const [playlistName, setPlaylistName] = useState("");
   const [numTracks, setNumTracks] = useState(-1);
+  const [trackOrder, setTrackOrder] = useState([]);
+  const [numTracksRemaining, setNumTracksRemaining] = useState(0);
+  const [playlistOffset, setPlaylistOffset] = useState(0);
+  const [seenAlbumIds, setSeenAlbumIds] = useState(new Set());
+  const [isGettingNextAlbum, setIsGettingNextAlbum] = useState(false);
 
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
+
+  const shuffle = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
+  const restartGame = () => {
+    setSearchResults([]);
+    setShowResult(false);
+    setGameStarted(false);
+    setGameOver(false);
+    setDisableRevealBtn(false);
+    setPlaylistId("");
+    setPlaylistName("");
+    setNumTracks(-1);
+    setTrackOrder([]);
+    setNumTracksRemaining(0);
+    setSeenAlbumIds(new Set());
+    setIsGettingNextAlbum(false);
+  };
 
   const getNumTracksInPlaylist = (playlistId, offset) => {
     spotifyApi
@@ -43,8 +84,18 @@ export default function Dashboard({ code }) {
         return offset + res.body.items.length;
       })
       .then((lastOffset) => {
-        if (lastOffset >= 0) {
+        if (lastOffset === 0) {
+          window.alert(
+            "Oops! Looks like we've selected an empty playlist of yours. Start again to try another one."
+          );
+          window.location.href = "./";
+        }
+        if (lastOffset > 0) {
+          let trackOrder = [...Array(lastOffset).keys()];
+          trackOrder = shuffle(trackOrder);
+          setTrackOrder(trackOrder);
           setNumTracks(lastOffset);
+          setNumTracksRemaining(lastOffset);
         }
       });
   };
@@ -63,9 +114,17 @@ export default function Dashboard({ code }) {
         return offset + res.body.items.length;
       })
       .then((lastOffset) => {
-        if (lastOffset >= 0) {
+        if (lastOffset === 0) {
+          window.alert(
+            "You don't have any playlists! Create a Spotify playlist to start playing."
+          );
+          window.location.href = "./";
+          return;
+        }
+        if (lastOffset > 0) {
           setNumPlaylists(lastOffset);
           const randomPlaylistOffset = Math.floor(Math.random() * lastOffset);
+          setPlaylistOffset(randomPlaylistOffset);
           spotifyApi
             .getUserPlaylists(usr, {
               limit: 1,
@@ -95,20 +154,32 @@ export default function Dashboard({ code }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
-  const onClickHandler = () => {
+  const onClickHandler = (numTracksRemaining) => {
+    setIsGettingNextAlbum(true);
     setShowResult(false);
     setDisableRevealBtn(false);
     if (!gameStarted) {
       setGameStarted(true);
     }
-    const randomTrackOffset = Math.floor(Math.random() * numTracks);
+    if (numTracksRemaining === 0) {
+      setGameOver(true);
+      return;
+    }
+    setNumTracksRemaining(numTracksRemaining - 1);
     spotifyApi
       .getPlaylistTracks(playlistId, {
         limit: 1,
-        offset: randomTrackOffset,
+        offset: trackOrder[numTracks - numTracksRemaining],
         fields: "items",
       })
       .then((res) => {
+        const albumId = res.body.items[0].track.album.id;
+        if (seenAlbumIds.has(albumId)) {
+          onClickHandler(numTracksRemaining - 1);
+          return;
+        }
+        seenAlbumIds.add(albumId);
+        setSeenAlbumIds(seenAlbumIds);
         setSearchResults(
           res.body.items.map((item) => {
             const smallestAlbumImage = item.track.album.images.reduce(
@@ -133,6 +204,7 @@ export default function Dashboard({ code }) {
             };
           })
         );
+        setIsGettingNextAlbum(false);
       });
   };
 
@@ -142,12 +214,14 @@ export default function Dashboard({ code }) {
   };
 
   const changePlaylistHandler = () => {
-    setSearchResults([]);
-    setShowResult(false);
-    setGameStarted(false);
-    setDisableRevealBtn(false);
-    setNumTracks(-1);
-    const randomPlaylistOffset = Math.floor(Math.random() * numPlaylists);
+    restartGame();
+    let randomPlaylistOffset = Math.floor(Math.random() * numPlaylists);
+    if (numPlaylists > 1) {
+      while (randomPlaylistOffset === playlistOffset) {
+        randomPlaylistOffset = Math.floor(Math.random() * numPlaylists);
+      }
+    }
+    setPlaylistOffset(randomPlaylistOffset);
     spotifyApi
       .getUserPlaylists(username, {
         limit: 1,
@@ -174,26 +248,41 @@ export default function Dashboard({ code }) {
           </a>
           <div className="image-viewer">
             <div className="flex-grow-1 my-2">
-              {searchResults.length > 0 ? (
-                searchResults.map((track) => (
-                  <TrackSearchResult
-                    track={track}
-                    showResult={showResult}
-                    key={track.uri}
-                  />
-                ))
+              {gameStarted && !gameOver ? (
+                <>
+                  {!isGettingNextAlbum &&
+                    searchResults.map((track) => (
+                      <TrackSearchResult
+                        track={track}
+                        showResult={showResult}
+                        key={track.uri}
+                      />
+                    ))}
+                </>
               ) : (
-                <div className="album-placeholder">
-                  Get an album
-                  <br />
-                  below to begin!
-                </div>
+                <>
+                  {gameOver ? (
+                    <div className="game-over-text">
+                      You've completed <br /> this playlist!
+                      <br />
+                      <br />
+                      Change to another to start a new game!
+                    </div>
+                  ) : (
+                    <div className="album-placeholder">
+                      Get an album
+                      <br />
+                      below to begin!
+                    </div>
+                  )}
+                </>
               )}
             </div>
             <Button
               className="get-album-btn"
               variant="custom-green"
-              onClick={onClickHandler}
+              onClick={() => onClickHandler(numTracksRemaining)}
+              disabled={gameOver}
             >
               {gameStarted ? "Another One" : "Get An Album"}
             </Button>
@@ -201,7 +290,7 @@ export default function Dashboard({ code }) {
               className="show-result-btn"
               variant="custom-grey"
               onClick={showResultHandler}
-              disabled={!gameStarted || disableRevealBtn}
+              disabled={!gameStarted || disableRevealBtn || gameOver}
             >
               Reveal Cover
             </Button>
@@ -217,7 +306,7 @@ export default function Dashboard({ code }) {
               }
               modal
             >
-              <div className="playlist-name">
+              <div className="playlist-popup">
                 <div className="playlist-header">Playlist:</div>
                 <div>{playlistName}</div>
               </div>
@@ -234,7 +323,7 @@ export default function Dashboard({ code }) {
       ) : (
         <div className="loading-page">
           <CSSTransition
-            classNames="loading-page-container"
+            classNames="spinner-container"
             in={true}
             appear={true}
             timeout={5000}

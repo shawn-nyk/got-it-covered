@@ -1,10 +1,10 @@
-.loading-page-container-appear {
+.spinner-container-appear {
   opacity: 0;
 }
 
-.loading-page-container-appear-active {
+.spinner-container-appear-active {
   opacity: 1;
-  transition: opacity 2000ms;
+  transition: opacity 1000ms;
 }
 
 .loading-page {
@@ -80,18 +80,30 @@
   align-items: center;
   text-align: center;
   margin-top: 120px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
   font-family: input-serif, serif;
   font-style: normal;
 }
 
-.playlist-name {
+.game-over-text {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: input-serif, serif;
+  font-style: normal;
+}
+
+.playlist-popup {
   display: flex;
   flex-direction: column;
   padding: 10px 20px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-family: input-sans, sans-serif;
   font-weight: 700;
 }
